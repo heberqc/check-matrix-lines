@@ -93,11 +93,9 @@ function checkHorizontal(matrix, value, minLen) {
 
 function transpose(matrix) {
   const mat = matrix.map(row => row.slice());
-  console.log('mat', mat)
+  // console.log('transpose', mat)
   const rowLen = mat.length;
-  console.log('rowLen', rowLen)
   const matLen = mat.slice(0, 1)[0].length;
-  console.log('matLen', matLen)
   return Array(matLen).fill(null).map(
     (_, i) => Array(rowLen).fill(null).map(
       (_, j) => mat[j][i]
@@ -105,23 +103,96 @@ function transpose(matrix) {
   );
 }
 
-console.log(`[
-  [0,0,1,0,0],
-  [1,1,0,1,0],
-  [0,1,1,1,0],
-]` ,transpose([
-  [0,0,1,0,0],
-  [1,1,0,1,0],
-  [0,1,1,1,0],
-]));
+// console.log(`[
+//   [0,0,1,0,0],
+//   [1,1,0,1,0],
+//   [0,1,1,1,0],
+// ]` ,transpose([
+//   [0,0,1,0,0],
+//   [1,1,0,1,0],
+//   [0,1,1,1,0],
+// ]));
+// console.log(`[
+//   [0,0,1,0,0],
+//   [1,1,0,1,0],
+//   [1,1,2,2,2],
+//   [0,1,1,1,0],
+// ]` ,transpose([
+//   [0,0,1,0,0],
+//   [1,1,0,1,0],
+//   [1,1,2,2,2],
+//   [0,1,1,1,0],
+// ]));
+
+function checkVertical(matrix, value, minLen) {
+  console.log('checkVertical', matrix, value, minLen)
+  const t_matrix = transpose(matrix);
+  return checkHorizontal(t_matrix, value, minLen);
+}
+
 console.log(`[
   [0,0,1,0,0],
   [1,1,0,1,0],
   [1,1,2,2,2],
   [0,1,1,1,0],
-]` ,transpose([
+]` ,checkVertical([
   [0,0,1,0,0],
   [1,1,0,1,0],
   [1,1,2,2,2],
   [0,1,1,1,0],
-]));
+], 1, 3));
+console.log(`[
+  [0,0,1,0,0],
+  [1,1,0,1,0],
+  [1,0,2,2,2],
+  [0,1,1,1,0],
+]` ,checkVertical([
+  [0,0,1,0,0],
+  [1,1,0,1,0],
+  [1,0,2,2,2],
+  [0,1,1,1,0],
+], 1, 3));
+console.log(`[
+  [0,0,1,0,2],
+  [1,1,0,1,2],
+  [1,1,2,2,2],
+  [0,1,1,1,0],
+]` ,checkVertical([
+  [0,0,1,0,2],
+  [1,1,0,1,2],
+  [1,1,2,2,2],
+  [0,1,1,1,0],
+], 2, 3));
+console.log(`[
+  [0,0,1,0,0],
+  [1,1,0,1,2],
+  [1,1,2,2,2],
+  [0,1,1,1,2],
+]` ,checkVertical([
+  [0,0,1,0,0],
+  [1,1,0,1,2],
+  [1,1,2,2,2],
+  [0,1,1,1,2],
+], 2, 3));
+console.log(`[
+  [0,0,1,0,0],
+  [1,1,0,1,2],
+  [1,1,2,2,2],
+  [0,1,1,1,2],
+]` ,checkVertical([
+  [0,0,1,0,0],
+  [1,1,0,1,2],
+  [1,1,2,2,2],
+  [0,1,1,1,2],
+], 2, 4));
+console.log(`[
+  [0,0,1,0,2],
+  [1,1,0,1,2],
+  [1,1,2,2,2],
+  [0,1,1,1,2],
+]` ,checkVertical([
+  [0,0,1,0,2],
+  [1,1,0,1,2],
+  [1,1,2,2,2],
+  [0,1,1,1,2],
+], 2, 3));
