@@ -52,41 +52,76 @@ function checkHorizontal(matrix, value, minLen) {
   }
 }
 
+// console.log(`[
+//   [0,0,1,0,0],
+//   [1,1,0,1,0],
+//   [0,1,1,1,0],
+// ]` ,checkHorizontal([
+//   [0,0,1,0,0],
+//   [1,1,0,1,0],
+//   [0,1,1,1,0],
+// ], 1, 3));
+// console.log(`[
+//   [0,0,1,0,0],
+//   [1,1,0,1,0],
+//   [0,1,0,1,0],
+// ]` ,checkHorizontal([
+//   [0,0,1,0,0],
+//   [1,1,0,1,0],
+//   [0,1,0,1,0],
+// ], 1, 3));
+// console.log(`[
+//   [0,0,1,0,0],
+//   [1,1,0,1,0],
+//   [0,1,1,1,0],
+// ]` ,checkHorizontal([
+//   [0,0,1,0,0],
+//   [1,1,0,1,0],
+//   [0,1,1,1,0],
+// ], 0, 3));
+// console.log(`[
+//   [0,0,1,0,0],
+//   [1,1,0,1,0],
+//   [1,1,2,2,2],
+//   [0,1,1,1,0],
+// ]` ,checkHorizontal([
+//   [0,0,1,0,0],
+//   [1,1,0,1,0],
+//   [1,1,2,2,2],
+//   [0,1,1,1,0],
+// ], 2, 3));
+
+function transpose(matrix) {
+  const mat = matrix.map(row => row.slice());
+  console.log('mat', mat)
+  const rowLen = mat.length;
+  console.log('rowLen', rowLen)
+  const matLen = mat.slice(0, 1)[0].length;
+  console.log('matLen', matLen)
+  return Array(matLen).fill(null).map(
+    (_, i) => Array(rowLen).fill(null).map(
+      (_, j) => mat[j][i]
+    )
+  );
+}
+
 console.log(`[
   [0,0,1,0,0],
   [1,1,0,1,0],
   [0,1,1,1,0],
-]` ,checkHorizontal([
+]` ,transpose([
   [0,0,1,0,0],
   [1,1,0,1,0],
   [0,1,1,1,0],
-], 1, 3));
-console.log(`[
-  [0,0,1,0,0],
-  [1,1,0,1,0],
-  [0,1,0,1,0],
-]` ,checkHorizontal([
-  [0,0,1,0,0],
-  [1,1,0,1,0],
-  [0,1,0,1,0],
-], 1, 3));
-console.log(`[
-  [0,0,1,0,0],
-  [1,1,0,1,0],
-  [0,1,1,1,0],
-]` ,checkHorizontal([
-  [0,0,1,0,0],
-  [1,1,0,1,0],
-  [0,1,1,1,0],
-], 0, 3));
+]));
 console.log(`[
   [0,0,1,0,0],
   [1,1,0,1,0],
   [1,1,2,2,2],
   [0,1,1,1,0],
-]` ,checkHorizontal([
+]` ,transpose([
   [0,0,1,0,0],
   [1,1,0,1,0],
   [1,1,2,2,2],
   [0,1,1,1,0],
-], 2, 3));
+]));
