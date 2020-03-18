@@ -222,7 +222,7 @@ function getMatrixDiagonal(matrix, pos_y, pos_x, max_y, max_x) {
 
 
 function checkDiagonal(matrix, value, minLen) {
-  console.log('checkDiagonal', matrix, value, minLen)
+  // console.log('checkDiagonal', matrix, value, minLen)
   const rowLen = matrix.length;
   const colLen = matrix.slice(0, 1)[0].length;
   const max_row = rowLen - minLen;
@@ -246,48 +246,104 @@ function checkDiagonal(matrix, value, minLen) {
   return false
 }
 
+// console.log(`[
+//   [0,0,1,0,2,0],
+//   [1,1,0,1,2,0],
+//   [1,1,2,2,2,0],
+//   [0,1,2,1,2,0],
+// ]` ,checkDiagonal([
+//   [0,0,1,0,2,0],
+//   [1,1,0,1,2,0],
+//   [1,1,2,2,2,0],
+//   [0,1,2,1,2,0],
+// ], 2, 3));
+// console.log(`[
+//   [0,0,1,0,2,0],
+//   [2,1,0,1,2,0],
+//   [1,2,2,2,2,0],
+//   [0,1,2,1,2,0],
+// ]` ,checkDiagonal([
+//   [0,0,1,0,2,0],
+//   [2,1,0,1,2,0],
+//   [1,2,2,2,2,0],
+//   [0,1,2,1,2,0],
+// ], 2, 3));
+// console.log(`[
+//   [0,0,1,0,2,0],
+//   [1,1,0,1,2,0],
+//   [1,1,2,2,2,0],
+//   [0,1,0,1,2,0],
+// ]` ,checkDiagonal([
+//   [0,0,1,0,2,0],
+//   [1,1,0,1,2,0],
+//   [1,1,2,2,2,0],
+//   [0,1,0,1,2,0],
+// ], 2, 3));
+// console.log(`[
+//   [0,2,1,0,2,0],
+//   [1,1,2,1,2,0],
+//   [1,1,2,2,2,0],
+//   [0,1,0,1,2,0],
+// ]` ,checkDiagonal([
+//   [0,2,1,0,2,0],
+//   [1,1,2,1,2,0],
+//   [1,1,2,2,2,0],
+//   [0,1,0,1,2,0],
+// ], 2, 4));
+// console.log(`[
+//   [1,2,1,0,2,0],
+//   [1,1,2,1,2,0],
+//   [1,1,1,2,2,0],
+//   [0,1,0,1,2,0],
+// ]` ,checkDiagonal([
+//   [1,2,1,0,2,0],
+//   [1,1,2,1,2,0],
+//   [1,1,1,2,2,0],
+//   [0,1,0,1,2,0],
+// ], 1, 4));
+
+function checkVictory(matrix, value, minLen) {
+  console.log(matrix, value, minLen)
+  // horizontal
+  if (checkHorizontal(matrix, value, minLen)) {
+    return true;
+  }
+  const t_matrix = transpose(matrix);
+  // vertical
+  if (checkHorizontal(t_matrix, value, minLen)) {
+    return true;
+  }
+  // diagonales positivas
+  if (checkDiagonal(matrix, value, minLen)) {
+    return true;
+  }
+  // diagonal negativas
+  if (checkDiagonal(t_matrix, value, minLen)) {
+    return true;
+  }
+  return false;
+}
+
 console.log(`[
-  [0,0,1,0,2,0],
-  [1,1,0,1,2,0],
-  [1,1,2,2,2,0],
-  [0,1,2,1,2,0],
-]` ,checkDiagonal([
-  [0,0,1,0,2,0],
-  [1,1,0,1,2,0],
-  [1,1,2,2,2,0],
-  [0,1,2,1,2,0],
-], 2, 3));
-console.log(`[
-  [0,0,1,0,2,0],
-  [2,1,0,1,2,0],
-  [1,2,2,2,2,0],
-  [0,1,2,1,2,0],
-]` ,checkDiagonal([
-  [0,0,1,0,2,0],
-  [2,1,0,1,2,0],
-  [1,2,2,2,2,0],
-  [0,1,2,1,2,0],
-], 2, 3));
-console.log(`[
-  [0,0,1,0,2,0],
-  [1,1,0,1,2,0],
-  [1,1,2,2,2,0],
-  [0,1,0,1,2,0],
-]` ,checkDiagonal([
-  [0,0,1,0,2,0],
-  [1,1,0,1,2,0],
-  [1,1,2,2,2,0],
-  [0,1,0,1,2,0],
-], 2, 3));
-console.log(`[
-  [0,2,1,0,2,0],
+  [1,2,1,0,2,0],
   [1,1,2,1,2,0],
-  [1,1,2,2,2,0],
+  [1,1,1,2,2,0],
   [0,1,0,1,2,0],
-]` ,checkDiagonal([
-  [0,2,1,0,2,0],
+]` ,checkVictory([
+  [1,2,1,0,2,0],
   [1,1,2,1,2,0],
-  [1,1,2,2,2,0],
+  [1,1,1,2,2,0],
+  [0,1,0,1,2,0],
+], 1, 4));
+console.log(`[
+  [1,2,1,0,2,0],
+  [1,1,2,1,2,0],
+  [1,1,1,2,2,0],
+  [0,1,0,1,2,0],
+]` ,checkVictory([
+  [1,2,1,0,2,0],
+  [1,1,2,1,2,0],
+  [1,1,1,2,2,0],
   [0,1,0,1,2,0],
 ], 2, 4));
 console.log(`[
@@ -295,9 +351,31 @@ console.log(`[
   [1,1,2,1,2,0],
   [1,1,1,2,2,0],
   [0,1,0,1,2,0],
-]` ,checkDiagonal([
+]` ,checkVictory([
   [1,2,1,0,2,0],
   [1,1,2,1,2,0],
   [1,1,1,2,2,0],
   [0,1,0,1,2,0],
-], 1, 4));
+], 0, 4));
+console.log(`[
+  [1,2,1,0,2,0],
+  [1,1,0,1,1,0],
+  [1,1,1,2,2,0],
+  [0,1,0,1,2,0],
+]` ,checkVictory([
+  [1,2,1,0,2,0],
+  [1,1,0,1,1,0],
+  [1,1,1,2,2,0],
+  [0,1,0,1,2,0],
+], 1, 5));
+console.log(`[
+  [1,2,1,0,2,0],
+  [1,1,1,1,1,0],
+  [1,1,1,2,2,0],
+  [0,1,0,1,2,0],
+]` ,checkVictory([
+  [1,2,1,0,2,0],
+  [1,1,1,1,1,0],
+  [1,1,1,2,2,0],
+  [0,1,0,1,2,0],
+], 1, 5));
