@@ -198,7 +198,7 @@ function checkVertical(matrix, value, minLen) {
 // ], 2, 3));
 
 function getMatrixDiagonal(matrix, pos_y, pos_x, max_y, max_x) {
-  console.log(matrix, pos_y, pos_x, max_y, max_x)
+  // console.log(matrix, pos_y, pos_x, max_y, max_x)
   let step = 0;
   const res = [];
   while(pos_y + step < max_y && pos_x + step < max_x) {
@@ -208,26 +208,41 @@ function getMatrixDiagonal(matrix, pos_y, pos_x, max_y, max_x) {
   return res;
 }
 
-console.log(`[
-  [0,0,1,0,2,0],
-  [1,1,0,1,2,0],
-  [1,1,2,2,2,0],
-  [0,1,2,1,2,0],
-]` ,getMatrixDiagonal([
-  [0,0,1,0,2,0],
-  [1,1,0,1,2,0],
-  [1,1,2,2,2,0],
-  [0,1,2,1,2,0],
-], 0, 2, 4, 6));
+// console.log(`[
+//   [0,0,1,0,2,0],
+//   [1,1,0,1,2,0],
+//   [1,1,2,2,2,0],
+//   [0,1,2,1,2,0],
+// ]` ,getMatrixDiagonal([
+//   [0,0,1,0,2,0],
+//   [1,1,0,1,2,0],
+//   [1,1,2,2,2,0],
+//   [0,1,2,1,2,0],
+// ], 0, 2, 4, 6));
 
-/*
+
 function checkDiagonal(matrix, value, minLen) {
-  const mat = matrix.map(row => row.slice());
-  // console.log('transpose', mat)
-  const rowLen = mat.length;
-  const colLen = mat.slice(0, 1)[0].length;
+  console.log('checkDiagonal', matrix, value, minLen)
+  const rowLen = matrix.length;
+  const colLen = matrix.slice(0, 1)[0].length;
+  const max_row = rowLen - minLen;
+  const max_col = colLen - minLen;
   // under diagonal
-  // Array(colLen - minLen + 1).fill(null).map()
+  for(let j = max_row; j > 0; --j) {
+    if (checkLine(getMatrixDiagonal(matrix, j, 0, rowLen, colLen), value, minLen)) {
+      return true;
+    }
+  }
+  // diagonal
+  if (checkLine(getMatrixDiagonal(matrix, 0, 0, rowLen, colLen), value, minLen)) {
+    return true;
+  }
+  // over diagonal
+  for(let i = max_col; i > 0; --i) {
+    if (checkLine(getMatrixDiagonal(matrix, 0, i, rowLen, colLen), value, minLen)) {
+      return true;
+    }
+  }
   return false
 }
 
@@ -244,6 +259,17 @@ console.log(`[
 ], 2, 3));
 console.log(`[
   [0,0,1,0,2,0],
+  [2,1,0,1,2,0],
+  [1,2,2,2,2,0],
+  [0,1,2,1,2,0],
+]` ,checkDiagonal([
+  [0,0,1,0,2,0],
+  [2,1,0,1,2,0],
+  [1,2,2,2,2,0],
+  [0,1,2,1,2,0],
+], 2, 3));
+console.log(`[
+  [0,0,1,0,2,0],
   [1,1,0,1,2,0],
   [1,1,2,2,2,0],
   [0,1,0,1,2,0],
@@ -253,4 +279,25 @@ console.log(`[
   [1,1,2,2,2,0],
   [0,1,0,1,2,0],
 ], 2, 3));
-*/
+console.log(`[
+  [0,2,1,0,2,0],
+  [1,1,2,1,2,0],
+  [1,1,2,2,2,0],
+  [0,1,0,1,2,0],
+]` ,checkDiagonal([
+  [0,2,1,0,2,0],
+  [1,1,2,1,2,0],
+  [1,1,2,2,2,0],
+  [0,1,0,1,2,0],
+], 2, 4));
+console.log(`[
+  [1,2,1,0,2,0],
+  [1,1,2,1,2,0],
+  [1,1,1,2,2,0],
+  [0,1,0,1,2,0],
+]` ,checkDiagonal([
+  [1,2,1,0,2,0],
+  [1,1,2,1,2,0],
+  [1,1,1,2,2,0],
+  [0,1,0,1,2,0],
+], 1, 4));
