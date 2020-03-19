@@ -236,8 +236,6 @@ function getMatrixDiagonal(matrix, pos_y, pos_x, max_y, max_x) {
 // ], 0, 2, 4, 6));
 
 function y_reflect(matrix) {
-  const nRows = matrix.length;
-  const nCols = matrix[0].length;
   return matrix.map(row => row.reverse());
 }
 
@@ -368,20 +366,20 @@ console.log(`[
 
 function checkVictory(matrix, value, minLen) {
   console.log(matrix, value, minLen)
-  // horizontal
-  if (checkHorizontal(matrix, value, minLen)) {
+  const mat = matrix.map(row => row.slice());
+  if (checkHorizontal(mat, value, minLen)) {
     return true;
   }
   // vertical
-  if (checkHorizontal(transpose(matrix), value, minLen)) {
+  if (checkHorizontal(transpose(mat), value, minLen)) {
     return true;
   }
   // diagonales positivas
-  if (checkDiagonal(matrix, value, minLen)) {
+  if (checkDiagonal(mat, value, minLen)) {
     return true;
   }
   // diagonal negativas
-  if (checkDiagonal(y_reflect(matrix), value, minLen)) {
+  if (checkDiagonal(y_reflect(mat), value, minLen)) {
     return true;
   }
   return false;
